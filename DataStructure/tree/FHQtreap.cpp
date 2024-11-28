@@ -33,6 +33,14 @@ struct treap{
 		}
 	}
 	int query_rank(int val){int L, R;SplitVal(root, val - 1, L, R);int ans = d[L].size + 1;return root = merge(L, R), ans;} 
-	int pre_val(int x){int L, R;SplitVal(root, x - 1, L, R);int ans = query_val(L, d[L].size);return root = merge(L, R), ans;}
-	int next_val(int x){int L, R;SplitVal(root, x, L, R); int ans = query_val(R, 1);return root = merge(L, R), ans;}
+	int pre_val(int x){
+		int L, R, now;SplitVal(root, x - 1, L, R), now = L;
+		while(d[now].rs)now = d[now].rs;
+		return root = merge(L, R), d[now].val;
+	}
+	int next_val(int x){
+		int L, R, now;SplitVal(root, x, L, R), now = R; 
+		while(d[now].ls)now = d[now].ls;
+		return root = merge(L, R), d[now].val;
+	}
 };
