@@ -1,8 +1,10 @@
+#include<random>
+#include<chrono>
 constexpr int N = 1e5 + 10;
+std::mt19937 rd(std::chrono::steady_clock::now().time_since_epoch().count());
 struct treap{
 	struct node{int size, val, rank, ls, rs;}d[N];
-	int tot = 0, root = 0, seed = 187230412;
-	int rd(){return ((long long)(seed = 222 * seed % 2957242 / 25 * 21 % 287324) * 12424 + 98321) / 97124 * (seed + 2);}
+	int tot = 0, root = 0;
 	int newnode(int val){d[++tot].val = val, d[tot].rank = rd(), d[tot].size = 1, d[tot].ls = d[tot].rs = 0;return tot;}
 	void getsize(int u){d[u].size = 1 + d[d[u].ls].size + d[d[u].rs].size;}
 	void SplitVal(int now, int val, int&L, int&R){
